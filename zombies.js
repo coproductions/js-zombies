@@ -86,28 +86,32 @@ function Player(name,health,strength,speed){
   this.takeItem = function(item){
     if(this.getPack().length <= 2){
       this._pack.push(item);
-      console.log(this.name + ' took a '+item);
+      console.log(this._pack)
+      console.log(this.name + ' took a '+item.name);
       return true;
     } else return false;
   }
   this.discardItem = function(item){
     if(this.getPack().indexOf(item) >= 0){
       this.getPack().splice(this.getPack().indexOf(item),1);
-      console.log(this.name+' dicarded a '+item);
+      console.log(this.name+' dicarded a '+item.name);
       return true;
     } else{
-        console.log('Nothing was discarded since '+ item +' could not be found.');
+        console.log('Nothing was discarded since '+ item.name +' could not be found.');
         return false;
     }
   }
   this.equip = function(item){
     if(item instanceof Weapon && this.getPack().indexOf(item) >= 0){
+      console.log('equip pack',this._pack)
       if(this.equipped){
         this.getPack().splice(this.getPack().indexOf(item),1,this.equipped);
         this.equipped = item;
+        console.log('test',this.equipped)
       } else {
         this.getPack().splice(this.getPack().indexOf(item),1);
         this.equipped = item;
+        console.log('test2',this.equipped)
       }
     }
   }
@@ -318,4 +322,16 @@ function runGame() {
   player.useItem(sandwich);
   console.log("After health: " + player.health);
   player.checkPack();
+}
+
+module.exports = {
+  Item : Item,
+  Weapon : Weapon,
+  Food : Food,
+  Player : Player,
+  Zombie : Zombie,
+  FastZombie : FastZombie,
+  StrongZombie : StrongZombie,
+  RangedZombie : RangedZombie,
+  ExplodingZombie : ExplodingZombie
 }
